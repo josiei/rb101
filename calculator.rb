@@ -8,7 +8,11 @@ def prompt(message)
 end
 
 def valid_number?(num)
-  num.to_i != 0
+  num.match?(/[[:digit:]]/)
+end
+
+def number?(num)
+  num.kind_of?(Float) || num.kind_of?(Integer)
 end
 
 def operation_to_message(op)
@@ -28,13 +32,24 @@ number1 = ''
 number2 = ''
 result = ''
 
-prompt("Welcome to calculator! Enter your name:")
+config = {
+  welcome: "Welcome to calculator! Enter your name:",
+  name: "Make sure to use a valid name",
+  first: "What is the first number?",
+  not_valid: "Hmm.. that is not quite a valid number",
+  second: "What is the second number?",
+  choose: "Must choose 1, 2, 3, or 4",
+  another: "Do you want to perform another calculation? (Y to continue)",
+  thank_you: "Thank you for using calculator!",
+}
+
+prompt(config[:welcome])
 name = ''
 
 loop do
   name = Kernel.gets().chomp()
   if name.empty?()
-    prompt("Make sure to use a valid name")
+    prompt(:name)
   else
     break
   end
@@ -42,23 +57,23 @@ end
 
 loop do
   loop do
-    prompt("What is the first number?")
+    prompt(config[:first])
     number1 = Kernel.gets().chomp()
     if valid_number?(number1)
       break
     else
-      prompt("Hmm.. that is not quite a valid number")
+      prompt(config[:not_valid])
     end
   end
 
   loop do
-    prompt("What is the second number?")
+    prompt(config[:second])
     number2 = Kernel.gets().chomp()
 
     if valid_number?(number2)
       break
     else
-      prompt("Hmm.. that is not quite a valid number")
+      prompt(config[:not_valid])
     end
   end
 
@@ -78,7 +93,7 @@ loop do
     if %w(1 2 3 4).include?(operator)
       break
     else
-      prompt("Must choose 1, 2, 3, or 4")
+      prompt(config[:choose])
     end
   end
 
@@ -95,8 +110,8 @@ loop do
            end
 
   prompt("The result is #{result}")
-  prompt("Do you want to perform another calculation? (Y to continue)")
+  prompt(config[:another])
   answer = Kernel.gets().chomp()
   break unless answer.downcase.start_with?('y')
 end
-prompt("Thank you for using calculator!")
+prompt(config[:thank_you])
