@@ -1,0 +1,6 @@
+welcome: "Welcome to Mortgage Calculator!"
+loan_amount: "Please enter your total loan amount:"
+not_valid: "Hm... that doesn't seem like a valid number"
+apr: "Please enter your Annual Percentage Rate (APR)"
+duration: "Please enter your loan duration:"
+months_or_years: 'Is this in months or years? (m for months, y for years)'
